@@ -1,0 +1,9 @@
+.react-multiple-carousel__arrow--left {
+  left: 20px !important;
+  background: transparent !important;
+}
+
+.react-multiple-carousel__arrow--right {
+  right: 20px !important;
+  background: transparent !important;
+}

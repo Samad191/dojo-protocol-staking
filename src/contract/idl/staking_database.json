@@ -1,0 +1,1823 @@
+{
+  "version": "0.1.0",
+  "name": "staking_database",
+  "instructions": [
+    {
+      "name": "initializeDatabase",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabaseProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingDatabaseProgramData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "upgradeAuthority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "owner",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "setStakingParams",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "minimumStakeTime",
+          "type": "i64"
+        },
+        {
+          "name": "minimumStakeAmount",
+          "type": "u128"
+        },
+        {
+          "name": "maxDafi",
+          "type": "u128"
+        },
+        {
+          "name": "rewardFee",
+          "type": "u8"
+        },
+        {
+          "name": "programDuration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "setFirstRebaseTime",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "addTotalFeesCollected",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "markProgramEnded",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "addAccumulatedWeight",
+      "accounts": [
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "currentPoolWeight",
+          "type": "u128"
+        },
+        {
+          "name": "currentFeeWeight",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "setDDafiDistributed",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "dDafiDistributed",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "setDistributePerSecond",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "distributePerSecond",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "initializeUserStakeAccount",
+      "accounts": [
+        {
+          "name": "stakingUserAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "addStake",
+      "accounts": [
+        {
+          "name": "stakingUserAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        },
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "updateUserStake",
+      "accounts": [
+        {
+          "name": "stakingUserAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        },
+        {
+          "name": "newReward",
+          "type": "u128"
+        },
+        {
+          "name": "currentAccumulatedWeight",
+          "type": "u128"
+        },
+        {
+          "name": "newFee",
+          "type": "u128"
+        },
+        {
+          "name": "currentAccumulatedFeeWeight",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "updateStakeAmount",
+      "accounts": [
+        {
+          "name": "stakingUserAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        },
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "addPoolTotalStaked",
+      "accounts": [
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amountToAdd",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "subPoolTotalStaked",
+      "accounts": [
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amountToSub",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "markRewardsClaimed",
+      "accounts": [
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingUserAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        },
+        {
+          "name": "rewardsBeingClaimed",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "setMaxDafi",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "addToDafiBurned",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "addToFeesDeposited",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "setFeesDeposited",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "setRewardFee",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "addUserToWhitelist",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeUserFromWhitelist",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "changeOwner",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newOwner",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "setMinimumStakeAmount",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "minimumStakeAmount",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "setMinimumStakePeriod",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "minimumStakePeriod",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "setStakingStartTime",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "setProgramDuration",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newProgramDuration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "rebaseOptimized",
+      "accounts": [
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "totalDDafiDistributed",
+          "type": "u128"
+        },
+        {
+          "name": "dps",
+          "type": "u128"
+        },
+        {
+          "name": "feesDeposited",
+          "type": "u128"
+        },
+        {
+          "name": "currentPoolWeight",
+          "type": "u128"
+        },
+        {
+          "name": "currentFeeWeight",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "disburseRewardsOptimized",
+      "accounts": [
+        {
+          "name": "stakingUserAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabaseState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        },
+        {
+          "name": "rewardBeingClaimed",
+          "type": "u128"
+        },
+        {
+          "name": "fee",
+          "type": "u128"
+        },
+        {
+          "name": "dafiBurned",
+          "type": "u128"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "StakingDatabaseState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "firstRebaseTime",
+            "type": "i64"
+          },
+          {
+            "name": "maxDafi",
+            "type": "u128"
+          },
+          {
+            "name": "dDafiBurned",
+            "type": "u128"
+          },
+          {
+            "name": "feesDeposited",
+            "type": "u128"
+          },
+          {
+            "name": "minimumStakeAmount",
+            "type": "u128"
+          },
+          {
+            "name": "minimumStakePeriod",
+            "type": "i64"
+          },
+          {
+            "name": "stakingStartTime",
+            "type": "i64"
+          },
+          {
+            "name": "programDuration",
+            "type": "i64"
+          },
+          {
+            "name": "dDafiDistributed",
+            "type": "u128"
+          },
+          {
+            "name": "distributePerSecond",
+            "type": "u128"
+          },
+          {
+            "name": "programEndedAt",
+            "type": "i64"
+          },
+          {
+            "name": "totalStakedSinceLastClaim",
+            "type": "u128"
+          },
+          {
+            "name": "totalFeesCollected",
+            "type": "u128"
+          },
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "rewardFee",
+            "type": "u8"
+          },
+          {
+            "name": "programEnded",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Stake",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u128"
+          },
+          {
+            "name": "lastStakingAccumulatedWeight",
+            "type": "u128"
+          },
+          {
+            "name": "createdOn",
+            "type": "i64"
+          },
+          {
+            "name": "lastUpdatedOn",
+            "type": "i64"
+          },
+          {
+            "name": "totalUnclaimed",
+            "type": "u128"
+          },
+          {
+            "name": "lastAccumulatedFeeWeight",
+            "type": "u128"
+          },
+          {
+            "name": "feeBalance",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistedInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "whitelisted",
+            "type": "bool"
+          },
+          {
+            "name": "bumpSeed",
+            "type": "u8"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "currentAccumulatedWeight",
+            "type": "u128"
+          },
+          {
+            "name": "totalStaked",
+            "type": "u128"
+          },
+          {
+            "name": "lastUpdatedOn",
+            "type": "i64"
+          },
+          {
+            "name": "lastDemandFactor",
+            "type": "u128"
+          },
+          {
+            "name": "currentPoolWeight",
+            "type": "u128"
+          },
+          {
+            "name": "accumulatedFeeWeight",
+            "type": "u128"
+          },
+          {
+            "name": "currentFeeWeight",
+            "type": "u128"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "StakingSetEvent",
+      "fields": [
+        {
+          "name": "owner",
+          "type": "publicKey",
+          "index": true
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyInitialized"
+    },
+    {
+      "code": 6001,
+      "name": "NotInitialized"
+    },
+    {
+      "code": 6002,
+      "name": "NotOwner"
+    },
+    {
+      "code": 6003,
+      "name": "AlreadyOwner"
+    },
+    {
+      "code": 6004,
+      "name": "NotWhitelisted",
+      "msg": "Not authorised to access the token pool"
+    },
+    {
+      "code": 6005,
+      "name": "AlreadyWhitelisted"
+    },
+    {
+      "code": 6006,
+      "name": "BnConversionError",
+      "msg": "Conversion to u128/u64 failed with an overflow or underflow"
+    },
+    {
+      "code": 6007,
+      "name": "NumberCastError",
+      "msg": "Unable to cast number into BigInt"
+    },
+    {
+      "code": 6008,
+      "name": "NumberDownCastError",
+      "msg": "Unable to down cast number"
+    }
+  ]
+}

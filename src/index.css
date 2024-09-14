@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Biryani:wght@300;400;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Bruno Ace', 'Biryani', 'Inter', 'Arial', sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}

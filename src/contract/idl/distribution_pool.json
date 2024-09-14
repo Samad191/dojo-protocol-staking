@@ -1,0 +1,406 @@
+{
+  "version": "0.1.0",
+  "name": "distribution_pool",
+  "instructions": [
+    {
+      "name": "initializeDistributionPool",
+      "accounts": [
+        {
+          "name": "distributionPoolState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "distributionPoolProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "distributionPoolProgramData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "upgradeAuthority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "distributionPoolVault",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool_vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "distributionPoolVaultAuthority",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "vault_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "tokenMint",
+          "type": "publicKey"
+        },
+        {
+          "name": "owner",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "addUserToWhitelist",
+      "accounts": [
+        {
+          "name": "distributionPoolState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeUserFromWhitelist",
+      "accounts": [
+        {
+          "name": "distributionPoolState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "transferRewards",
+      "accounts": [
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "distributionPoolVault",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool_vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mintAcc",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "distributionPoolVaultAuthority",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "vault_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "distributionPoolState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "to",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "changeOwner",
+      "accounts": [
+        {
+          "name": "distributionPoolState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "distribution_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newOwner",
+          "type": "publicKey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "DistributionPoolState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "tokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "distributionPoolVault",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistedInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "whitelisted",
+            "type": "bool"
+          },
+          {
+            "name": "bumpSeed",
+            "type": "u8"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyInitialized"
+    },
+    {
+      "code": 6001,
+      "name": "NotInitialized"
+    },
+    {
+      "code": 6002,
+      "name": "NotOwner"
+    },
+    {
+      "code": 6003,
+      "name": "AlreadyOwner"
+    },
+    {
+      "code": 6004,
+      "name": "NotWhitelisted",
+      "msg": "Not authorised to access the token pool"
+    }
+  ]
+}

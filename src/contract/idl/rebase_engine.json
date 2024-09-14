@@ -1,0 +1,643 @@
+{
+  "version": "0.1.0",
+  "name": "rebase_engine",
+  "instructions": [
+    {
+      "name": "initializeRebaseEngine",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "rebaseEngineProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rebaseEngineProgramData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "upgradeAuthority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "owner",
+          "type": "publicKey"
+        },
+        {
+          "name": "networkDemand",
+          "type": "publicKey"
+        },
+        {
+          "name": "database",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "updateNetwork",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "networkDemand",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "updateDatabase",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "database",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "addUserToWhitelist",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeUserFromWhitelist",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "_user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "changeOwner",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newOwner",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "rebasePool",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakingDatabaseProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingDatabaseState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        },
+        {
+          "name": "rebaseAuthority",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "databaseWhitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "rebase_authority"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "rebaseUser",
+      "accounts": [
+        {
+          "name": "rebaseEngineState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_engine_state"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakingDatabasePool",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_database_pool"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        },
+        {
+          "name": "stakingDatabaseProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingDatabaseState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "staking_database_state"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        },
+        {
+          "name": "rebaseAuthority",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "rebase_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "databaseWhitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "rebase_authority"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        },
+        {
+          "name": "userStake",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "user_stake"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "user_add"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_database_program"
+            }
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "WhitelistedInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "whitelisted",
+            "type": "bool"
+          },
+          {
+            "name": "bumpSeed",
+            "type": "u8"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RebaseEngineState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "networkDemand",
+            "type": "publicKey"
+          },
+          {
+            "name": "database",
+            "type": "publicKey"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyInitialized"
+    },
+    {
+      "code": 6001,
+      "name": "NotInitialized"
+    },
+    {
+      "code": 6002,
+      "name": "NotOwner"
+    },
+    {
+      "code": 6003,
+      "name": "AlreadyOwner"
+    },
+    {
+      "code": 6004,
+      "name": "NotWhitelisted",
+      "msg": "Not authorised to access the token pool"
+    },
+    {
+      "code": 6005,
+      "name": "BnConversionError",
+      "msg": "Conversion to u128/u64 failed with an overflow or underflow"
+    },
+    {
+      "code": 6006,
+      "name": "NumberCastError",
+      "msg": "Unable to cast number into BigInt"
+    },
+    {
+      "code": 6007,
+      "name": "NumberDownCastError",
+      "msg": "Unable to down cast number"
+    }
+  ]
+}

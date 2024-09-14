@@ -1,0 +1,681 @@
+{
+  "version": "0.1.0",
+  "name": "dafi_network_demand",
+  "instructions": [
+    {
+      "name": "initializeNetworkDemand",
+      "accounts": [
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "networkDemandProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "networkDemandProgramData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "upgradeAuthority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "owner",
+          "type": "publicKey"
+        },
+        {
+          "name": "priceOracle",
+          "type": "publicKey"
+        },
+        {
+          "name": "tvlOracle",
+          "type": "publicKey"
+        },
+        {
+          "name": "tokenMint",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "addUserToWhitelist",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "removeUserFromWhitelist",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "arg",
+                "type": "publicKey",
+                "path": "user_add"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "userAdd",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "updateTvlFeed",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newTvlFeeds",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "updatePriceFeed",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newPriceFeed",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "setPricePercentage",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "pricePercentage",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "setTvlPercentage",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "tvlPercentage",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "setTargetPrice",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "targetPrice",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "setTargetTvl",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "targetTvl",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "changeOwner",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "newOwner",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "calculateNetworkDemand",
+      "accounts": [
+        {
+          "name": "networkDemandState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "network_demand"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "NetworkDemandState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bumpSeed",
+            "type": "u8"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "targetPrice",
+            "type": "u64"
+          },
+          {
+            "name": "targetTvl",
+            "type": "u64"
+          },
+          {
+            "name": "priceFeeds",
+            "type": "publicKey"
+          },
+          {
+            "name": "tvlFeeds",
+            "type": "publicKey"
+          },
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "pricePercentage",
+            "type": "u16"
+          },
+          {
+            "name": "tvlPercentage",
+            "type": "u16"
+          },
+          {
+            "name": "tokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "networkDemandValue",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistedInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "whitelisted",
+            "type": "bool"
+          },
+          {
+            "name": "bumpSeed",
+            "type": "u8"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Test_error",
+      "msg": "test"
+    },
+    {
+      "code": 6001,
+      "name": "SIGNER_VALIDATION_FAILED",
+      "msg": "signer validation failed"
+    },
+    {
+      "code": 6002,
+      "name": "SIGNER_LIST_LENGTH_MISMATCH",
+      "msg": "signer list and white-label list length mismatch"
+    },
+    {
+      "code": 6003,
+      "name": "AlreadyInitialized",
+      "msg": "network demand state account is already initialized"
+    },
+    {
+      "code": 6004,
+      "name": "INVALID_MINT_KEY"
+    },
+    {
+      "code": 6005,
+      "name": "ACCOUNT_ALREADY_CREATED"
+    },
+    {
+      "code": 6006,
+      "name": "NotOwner"
+    },
+    {
+      "code": 6007,
+      "name": "USER_MATCH_FAIL"
+    },
+    {
+      "code": 6008,
+      "name": "AlreadyOwner"
+    },
+    {
+      "code": 6009,
+      "name": "NotInitialized"
+    },
+    {
+      "code": 6010,
+      "name": "NotWhitelisted",
+      "msg": "Not authorised to access the token pool"
+    },
+    {
+      "code": 6011,
+      "name": "BPS_MAX_EXCEEDED"
+    },
+    {
+      "code": 6012,
+      "name": "TEST"
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "version": "0.1.0",
+  "name": "stake_pool",
+  "instructions": [
+    {
+      "name": "initializeStakePool",
+      "accounts": [
+        {
+          "name": "stakePoolState",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakePoolProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakePoolProgramData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "upgradeAuthority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakePoolVault",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_pool_vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakePoolVaultAuthority",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_vault_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingManagerProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingManagerPdaAuthority",
+          "isMut": false,
+          "isSigner": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "manager_authority"
+              }
+            ],
+            "programId": {
+              "kind": "account",
+              "type": "publicKey",
+              "path": "staking_manager_program"
+            }
+          }
+        },
+        {
+          "name": "whitelistAccount",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "staking_manager_pda_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payerAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "tokenMint",
+          "type": "publicKey"
+        },
+        {
+          "name": "stakingManager",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "transferRewards",
+      "accounts": [
+        {
+          "name": "whitelistAccount",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "whitelist"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "whitelist_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelistUser",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakePoolVault",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_pool_vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mintAcc",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakePoolVaultAuthority",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_vault_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stakePoolState",
+          "isMut": false,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "stake_pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "to",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "StakePoolState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "tokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "stakingManagerProgram",
+            "type": "publicKey"
+          },
+          {
+            "name": "vaultAccount",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistedInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "whitelisted",
+            "type": "bool"
+          },
+          {
+            "name": "bumpSeed",
+            "type": "u8"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyInitialized"
+    },
+    {
+      "code": 6001,
+      "name": "NotInitialized"
+    },
+    {
+      "code": 6002,
+      "name": "NotOwner"
+    },
+    {
+      "code": 6003,
+      "name": "AlreadyOwner"
+    },
+    {
+      "code": 6004,
+      "name": "NotWhitelisted",
+      "msg": "Not authorised to access the token pool"
+    },
+    {
+      "code": 6005,
+      "name": "NotSigner"
+    }
+  ]
+}
